@@ -11,10 +11,10 @@ cli.command('[root]', 'start dev server')
     .alias('dev')
     .action(async (root: string) => {
         root = root ? path.resolve(root) : process.cwd()
+        console.log('dev', root)
         const server = await createDevServe()
         await server.listen()
         server.printUrls()
-        console.log('dev', root)
     })
 
 cli.command('build [root]', 'build for production').action(async (root: string) => {

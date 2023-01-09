@@ -1,6 +1,5 @@
 import { createRoot } from 'react-dom/client'
 import { App } from './App'
-import React from 'react'
 
 /**
  * 浏览器中渲染

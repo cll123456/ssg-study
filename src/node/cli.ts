@@ -12,7 +12,7 @@ cli.command('[root]', 'start dev server')
     .action(async (root: string) => {
         root = root ? path.resolve(root) : process.cwd()
         console.log('dev', root)
-        const server = await createDevServe()
+        const server = await createDevServe(root)
         await server.listen()
         server.printUrls()
     })

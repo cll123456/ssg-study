@@ -4,6 +4,7 @@
         "target": "ESNext", /** 目标js版本，使用esNext **/
         "module": "commonjs", /** 模块化代码是 commonjs规范**/
         "rootDir": "src", /** 编译src内容下面的ts文件 */
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "jsx": "react-jsx"
     }
 }

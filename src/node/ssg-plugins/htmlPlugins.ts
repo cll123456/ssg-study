@@ -1,6 +1,6 @@
 import { Plugin } from 'vite'
 import { readFile } from 'fs/promises'
-import { DEFAULT_HTML_PATH, INSERT_SRC_PATH } from '../constants'
+import { DEFAULT_HTML_PATH, CLIENT_SRC_PATH } from '../constants'
 
 /**
  * vite返回html插件
@@ -19,7 +19,7 @@ export function htmlPlugin(): Plugin {
                         tag: 'script',
                         attrs: {
                             type: 'module',
-                            src: `/@fs/${INSERT_SRC_PATH}`
+                            src: `/@fs/${CLIENT_SRC_PATH}`
                         },
                         injectTo: 'body'
                     }

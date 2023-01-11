@@ -1,7 +1,7 @@
 import { build as viteBuild, InlineConfig } from 'vite'
 import { CLIENT_SRC_PATH, SERVER_SRC_PATH } from './constants'
 import type { RollupOutput } from 'rollup'
-import path from 'path'
+import * as path from 'path'
 
 /**
  * 打包bundle
@@ -45,7 +45,7 @@ export async function buildBundle(root: string) {
     const buildServer = async () => {
         return viteBuild(buildViteConfig(true))
     }
-
+    console.log(`Building client + server bundles...`)
     try {
         const [clientBundle, serverBundle] = await Promise.all([buildClient(), buildServer()])
         return [clientBundle, serverBundle] as [RollupOutput, RollupOutput]
@@ -63,8 +63,12 @@ export async function build(root: string = process.cwd()) {
     const [clientBundle, serverBundle] = await buildBundle(root)
 
     // 2. 引入server-entry 模块
-    const render = require(path.join(root, '.temp', serverBundle.output.find(chunk => chunk.type === 'chunk' && chunk.name === 'server-entry').fileName))
+    const serverBundlePath = serverBundle.output.find(chunk => chunk.type === 'chunk' && chunk.name === 'server-entry').fileName
+    console.log(serverBundlePath, '-----serverBundlePath')
+    console.log(path.join(root, '.temp', serverBundlePath), '--------path')
+
+    const render = require(path.resolve(root, '.temp', serverBundlePath))
 
     console.log(render)
     // 3. 产出html写入磁盘
-}
+} /*  */

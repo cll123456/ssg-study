@@ -3,6 +3,9 @@ import { CLIENT_SRC_PATH, SERVER_SRC_PATH } from './constants'
 import type { RollupOutput } from 'rollup'
 import * as path from 'path'
 import * as fs from 'fs-extra'
+// import ora from 'ora'
+
+const dynamiceImp = new Function('m', 'return import(m)')
 
 /**
  * 打包bundle
@@ -47,7 +50,12 @@ export async function buildBundle(root: string) {
     const buildServer = async () => {
         return viteBuild(buildViteConfig(true))
     }
-    console.log(`Building client + server bundles...`)
+    const ora = await dynamiceImp('ora')
+    console.log(ora, '-----ora')
+    ora.default('Building client + server bundles...').start()
+
+    // ora.default('Building client + server bundles...')
+    // spinner(`Building client + server bundles...`)
     try {
         const [clientBundle, serverBundle] = await Promise.all([buildClient(), buildServer()])
         return [clientBundle, serverBundle] as [RollupOutput, RollupOutput]
@@ -77,8 +85,7 @@ export async function renderPage(render: () => string, root: string, clientBundl
     `.trim()
     // 判断build目录存在
 
-    const res = await fs.ensureDir(path.join(root, 'build'))
-    debugger
+    await fs.ensureDir(path.join(root, 'build'))
     // 写入到build目录
     await fs.writeFile(path.join(root, 'build', 'index.html'), content)
     // 删除 .temp文件

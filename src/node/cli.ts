@@ -2,8 +2,9 @@ import { cac } from 'cac'
 import path from 'path'
 import { build } from './build'
 import { createDevServe } from './dev'
+// import pkg from './../../package.json'
 //  获取版本号
-const version = require('./../../package.json').version
+const version = '1.0.0'
 
 // 输入ssg -help 得到结果
 const cli = cac('ssg').version(version).help()

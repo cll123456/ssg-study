@@ -1,4 +1,4 @@
-import { createServer as createViteServer } from 'vite'
+import { createServer } from 'vite'
 import { htmlPlugin } from './ssg-plugins/htmlPlugins'
 import pluginReact from '@vitejs/plugin-react'
 
@@ -8,7 +8,7 @@ import pluginReact from '@vitejs/plugin-react'
  * @returns
  */
 export async function createDevServe(root = process.cwd()) {
-    return createViteServer({
+    return createServer({
         root,
         plugins: [htmlPlugin(), pluginReact()]
     })

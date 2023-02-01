@@ -1,8 +1,8 @@
 import { build as viteBuild, InlineConfig } from 'vite'
 import { CLIENT_SRC_PATH, SERVER_SRC_PATH } from './constants'
 import type { RollupOutput } from 'rollup'
-import * as path from 'path'
-import * as fs from 'fs-extra'
+import path from 'path'
+import fs from 'fs-extra'
 
 /**
  * 打包bundle
@@ -78,7 +78,6 @@ export async function renderPage(render: () => string, root: string, clientBundl
     // 判断build目录存在
 
     const res = await fs.ensureDir(path.join(root, 'build'))
-    debugger
     // 写入到build目录
     await fs.writeFile(path.join(root, 'build', 'index.html'), content)
     // 删除 .temp文件
@@ -95,7 +94,7 @@ export async function build(root: string = process.cwd()) {
 
     // 2. 引入server-entry 模块
     const serverBundlePath = serverBundle.output.find(chunk => chunk.type === 'chunk' && chunk.name === 'server-entry').fileName
-    const { render } = require(path.resolve(root, '.temp', serverBundlePath))
+    const { render } = await import(path.join(root, '.temp', serverBundlePath))
     // 3. 产出html写入磁盘
     await renderPage(render, root, clientBundle)
 }

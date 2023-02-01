@@ -1,5 +1,5 @@
 import { Plugin } from 'vite'
-import { readFile } from 'fs/promises'
+import fs from 'fs-extra'
 import { DEFAULT_HTML_PATH, CLIENT_SRC_PATH } from '../constants'
 
 /**
@@ -30,7 +30,7 @@ export function htmlPlugin(): Plugin {
             return () => {
                 server.middlewares.use(async (req, res, next) => {
                     // 1. 读取html的内容
-                    let content = await readFile(DEFAULT_HTML_PATH, 'utf-8')
+                    let content = await fs.readFile(DEFAULT_HTML_PATH, 'utf-8')
                     // 将读取到的内容返回给
                     try {
                         content = await server.transformIndexHtml(req.url, content, req.originalUrl)

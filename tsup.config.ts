@@ -9,4 +9,7 @@ export default defineConfig({
     format: ['cjs', 'esm'],
     dts: true,
     shims: true
+    // banner: {
+    //     js: [`import { createRequire as topLevelCreateRequire } from 'module'`, `const require = topLevelCreateRequire(import.meta.url)`].join('\n')
+    // }
 })

@@ -52,11 +52,11 @@ export async function buildBundle(root: string) {
         return viteBuild(buildViteConfig(true))
     }
     spinner = ora({
-        text: 'Building client + server bundles...'
+        text: 'Building client + server bundles...\n'
     })
     spinner.info(`start to build...`)
 
-    // spinner.start()
+    spinner.start()
     try {
         const [clientBundle, serverBundle] = await Promise.all([buildClient(), buildServer()])
         return [clientBundle, serverBundle] as [RollupOutput, RollupOutput]

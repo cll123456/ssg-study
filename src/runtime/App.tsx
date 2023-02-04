@@ -5,5 +5,5 @@ import { Layout } from './../theme-default'
  * @returns
  */
 export function App() {
-    return <Layout />
+  return <Layout />
 }

@@ -6,5 +6,5 @@ import { App } from './App'
  * @returns
  */
 export function render() {
-    return renderToString(<App />)
+  return renderToString(<App />)
 }

@@ -8,8 +8,8 @@ import pluginReact from '@vitejs/plugin-react'
  * @returns
  */
 export async function createDevServe(root = process.cwd()) {
-    return createServer({
-        root,
-        plugins: [htmlPlugin(), pluginReact()]
-    })
+  return createServer({
+    root,
+    plugins: [htmlPlugin(), pluginReact()]
+  })
 }

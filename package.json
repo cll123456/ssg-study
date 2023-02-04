@@ -12,6 +12,11 @@
     "bin": {
         "ssg": "bin/ssg.js"
     },
+    "lint-staged": {
+        "**/*.{js,jsx,tsx,ts}": [
+            "eslint --fix"
+        ]
+    },
     "keywords": [],
     "author": "",
     "license": "ISC",
@@ -31,6 +36,7 @@
         "eslint-plugin-react": "^7.32.2",
         "eslint-plugin-react-hooks": "^4.6.0",
         "husky": "^8.0.3",
+        "lint-staged": "^13.1.0",
         "prettier": "^2.8.3",
         "rollup": "^3.9.1",
         "tsup": "^6.5.0",

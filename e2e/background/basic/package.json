@@ -1,0 +1,16 @@
+{
+    "name": "basic",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "ssg dev docs",
+        "build": "ssg build docs"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "ssg": "../../.."
+    }
+}

@@ -3,7 +3,7 @@ import * as path from 'path'
 /**
  * template的跟路径
  */
-const PACKAGE_ROOT = path.join(__dirname, '..')
+export const PACKAGE_ROOT = path.join(__dirname, '..')
 
 /**
  * 默认template.html目标的路径

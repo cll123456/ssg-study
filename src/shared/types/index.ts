@@ -45,6 +45,12 @@ export interface UserConfig {
    * 网站的描述
    */
   description?: string
-  themeConfig: Sidebar
-  viteConfig: ViteConfig
+  themeConfig?: Sidebar
+  viteConfig?: ViteConfig
+}
+
+export interface SiteConfig {
+  root: string
+  configPath: string
+  siteData: UserConfig
 }

@@ -1,7 +1,7 @@
 import fs from 'fs-extra'
 import { resolve } from 'path'
 import { loadConfigFromFile } from 'vite'
-import { UserConfig } from '../shared/typed/index'
+import { SiteConfig, UserConfig } from 'shared/types/index'
 
 type RawConfig =
   | UserConfig
@@ -22,10 +22,31 @@ function getUserConfigPath(root: string) {
   }
 }
 
-export async function resolveConfig(
+/**
+ * 组合站点数据
+ * @param userConfig
+ * @returns
+ */
+export function resolveSiteData(userConfig: UserConfig): UserConfig {
+  return {
+    title: userConfig.title || 'ssg-framework',
+    description: userConfig.description || 'ssg is a site framework',
+    viteConfig: userConfig.viteConfig || {},
+    themeConfig: userConfig.themeConfig || {}
+  }
+}
+
+/**
+ * 解析用户的配置文件
+ * @param root
+ * @param command
+ * @param mode
+ * @returns
+ */
+export async function resolveUserConfig(
   root: string,
   command: 'serve' | 'build',
-  mode: 'production' | 'development'
+  mode: 'development' | 'production'
 ) {
   // 1. 获取配置文件路径
   const configPath = getUserConfigPath(root)
@@ -53,4 +74,28 @@ export async function resolveConfig(
   } else {
     return [configPath, {} as RawConfig] as const
   }
+}
+
+export async function resolveConfig(
+  root: string,
+  command: 'serve' | 'build',
+  mode: 'production' | 'development'
+) {
+  // 1. 获取配置文件路径
+  const [configPath, userConfig] = await resolveUserConfig(root, command, mode)
+  const config: SiteConfig = {
+    root: root,
+    configPath: configPath,
+    siteData: resolveSiteData(userConfig as UserConfig)
+  }
+  return config
+}
+
+/**
+ *  对外导出一个config,让内部的参数具有类型检查
+ * @param config
+ * @returns
+ */
+export function defineConfig(config: UserConfig): UserConfig {
+  return config
 }
